@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Rock, Paper, Scissors!</title>
+</head>
+
+<body>
+
+    <script>
+
+        function computerPlay() { // This function randomly returns rock, paper, or scissors and returns it to be used in the singleRound function
+            let num1 = Math.random();
+            if (num1 <= 0.333) {
+                return "ROCK";
+            }else if (num1 > 0.333 && num1 <= 0.666) {
+                return "PAPER";
+            }else if(num1 > 0.666) {
+                return "SCISSORS";
+            }
+        }
+        
+        function playerPlay() { // This function takes a valid input from the user and returns it to be used in the singleRound function
+            const ask = prompt("Rock, Paper, or Scissors?").toUpperCase();
+                if (!(ask === "ROCK" || ask === "PAPER" || ask === "SCISSORS")) {
+                    console.log("Invalid Input!")
+                }
+                else {
+                    return ask;
+                }       
+        }
+
+        function singleRound(playerSelection, computerSelection) { //This function compares the two arguments and returns the outcome 
+            if (playerSelection === computerSelection) {
+                return "tie";
+            
+            } else if (playerSelection === "SCISSORS" && computerSelection === "PAPER") {
+                return "player";
+            } else if (playerSelection === "ROCK" && computerSelection === "SCISSORS") {
+                return "player";
+            } else if (playerSelection === "PAPER" && computerSelection === "ROCK") {
+                return "player";
+            
+            } else if (playerSelection === "PAPER" && computerSelection === "SCISSORS") {
+                return "computer";
+            } else if (playerSelection === "ROCK" && computerSelection === "PAPER") {
+                return "computer";
+            } else if (playerSelection === "SCISSORS" && computerSelection === "ROCK") {
+                return "computer";
+            }
+
+        };
+
+        let playerSelection = playerPlay();
+        const computerSelection = computerPlay();
+
+        let playerScore = 0
+        let computerScore = 0
+
+        function game() { //This function uses the singleRound function and adds a console.log message so the user can see the outcome
+
+            let result = singleRound(playerSelection, computerSelection)
+
+            if (result === "player") {
+                playerScore++;
+                console.log("You won this round, you have " + playerScore + " points. Computer has " + computerScore + " points.");  
+            } else if (result === "tie") {
+                console.log("You both picked the same option, try again!");
+            } else if (result === "computer") {
+                computerScore++;
+                console.log("Computer won this round, you have " + playerScore + " points. Computer has " + computerScore + " points.");
+            }
+        }
+
+
+
+            game() // plays a whole game
+
+            
+            
+    </script>
+
+</body>
+
+</html>
+
