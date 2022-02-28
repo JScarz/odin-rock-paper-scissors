@@ -23,7 +23,7 @@
         function playerPlay() { // This function takes a valid input from the user and returns it to be used in the singleRound function
             const ask = prompt("Rock, Paper, or Scissors?").toUpperCase();
                 if (!(ask === "ROCK" || ask === "PAPER" || ask === "SCISSORS")) {
-                    console.log("Invalid Input!")
+                    console.log("Invalid Input! Reload the page.")
                 }
                 else {
                     return ask;
@@ -51,24 +51,36 @@
 
         };
 
-        let playerSelection = playerPlay();
-        const computerSelection = computerPlay();
+
+        
 
         let playerScore = 0
         let computerScore = 0
 
         function game() { //This function uses the singleRound function and adds a console.log message so the user can see the outcome
+            for (; computerScore < 3 && playerScore < 3 ;) {
+                
+                let computerSelection = computerPlay();
+                let playerSelection = playerPlay();
+                let result = singleRound(playerSelection, computerSelection)
+                
+                if (result === "player") {
+                    playerScore++;
+                    console.log("You won this round, you have " + playerScore + " points. Computer has " + computerScore + " points. All luck.");  
+                } else if (result === "tie") {
+                    console.log("You both picked the same option, try again!");
+                } else if (result === "computer") {
+                    computerScore++;
+                    console.log("Computer won this round, you have " + playerScore + " points. Computer has " + computerScore + " points. Unlucky mate, get better."); 
+                }
 
-            let result = singleRound(playerSelection, computerSelection)
-
-            if (result === "player") {
-                playerScore++;
-                console.log("You won this round, you have " + playerScore + " points. Computer has " + computerScore + " points.");  
-            } else if (result === "tie") {
-                console.log("You both picked the same option, try again!");
-            } else if (result === "computer") {
-                computerScore++;
-                console.log("Computer won this round, you have " + playerScore + " points. Computer has " + computerScore + " points.");
+                if (playerScore === 3) {
+                    console.log("So jammy! Beginner's luck.")
+                }else if (computerScore === 3) {
+                    console.log("Easy, next opponent please...")
+                }
+                
+                
             }
         }
 
