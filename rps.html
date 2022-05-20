@@ -3,93 +3,102 @@
 <head>
     <meta charset="UTF-8">
     <title>Rock, Paper, Scissors!</title>
+    <link href="rps.css" rel="stylesheet">
 </head>
 
 <body>
+    <div class="everything"></div>
+        <div id="topText">Choose your weapon!</div>
+        <div class="playerContainer">
+            <button id="rock">💎</button>
+            <button id="paper">📄</button>
+            <button id="scissors">✂️</button>
+        </div>
+        <div id="bottomText">Computer's choice:</div>
+        <div class="compContainer"></div>
+            <div id="rdmChoice"></div>
+        <div id="results">Results:</div>
+        <div class="outcome">
+            <div id="playScore">Your score: 0</div>
+            <div id="winner"></div>
+            <div id="compScore">Computer's score: 0</div>
+        </div>
 
-    <script>
 
-        function computerPlay() { // This function randomly returns rock, paper, or scissors and returns it to be used in the singleRound function
+    </div>
+   
+   
+   <script>
+     
+       
+       
+       
+       function computerPlay() { // This function randomly returns rock, paper, or scissors and returns it to be used in the singleRound function
             let num1 = Math.random();
             if (num1 <= 0.333) {
-                return "ROCK";
+                return "rock";
             }else if (num1 > 0.333 && num1 <= 0.666) {
-                return "PAPER";
+                return "paper";
             }else if(num1 > 0.666) {
-                return "SCISSORS";
+                return "scissors";
             }
         }
         
-        function playerPlay() { // This function takes a valid input from the user and returns it to be used in the singleRound function
-            const ask = prompt("Rock, Paper, or Scissors?").toUpperCase();
-                if (!(ask === "ROCK" || ask === "PAPER" || ask === "SCISSORS")) {
-                    console.log("Invalid Input! Reload the page.")
-                }
-                else {
-                    return ask;
-                }       
-        }
-
+        
         function singleRound(playerSelection, computerSelection) { //This function compares the two arguments and returns the outcome 
+            
+            if (computerSelection == "rock") {
+                document.getElementById("rdmChoice").innerHTML = "💎";
+            } else if (computerSelection == "paper") {
+                document.getElementById("rdmChoice").innerHTML = "📄";
+            } else if (computerSelection == "scissors") {
+                document.getElementById("rdmChoice").innerHTML = "✂️";
+            }
+           
+           
             if (playerSelection === computerSelection) {
-                return "tie";
-            
-            } else if (playerSelection === "SCISSORS" && computerSelection === "PAPER") {
-                return "player";
-            } else if (playerSelection === "ROCK" && computerSelection === "SCISSORS") {
-                return "player";
-            } else if (playerSelection === "PAPER" && computerSelection === "ROCK") {
-                return "player";
-            
-            } else if (playerSelection === "PAPER" && computerSelection === "SCISSORS") {
-                return "computer";
-            } else if (playerSelection === "ROCK" && computerSelection === "PAPER") {
-                return "computer";
-            } else if (playerSelection === "SCISSORS" && computerSelection === "ROCK") {
-                return "computer";
+                document.getElementById("winner").innerHTML = "Tie! You both selected " + playerSelection +".";
+                
+            } else if ((playerSelection === "scissors" && computerSelection === "paper") ||     
+            (playerSelection === "rock" && computerSelection === "scissors") ||
+            (playerSelection === "paper" && computerSelection === "rock")) {
+                playerScore++
+                document.getElementById("winner").innerHTML = "You won this round, "+ playerSelection +" beats " + computerSelection +".";
+                document.getElementById("playScore").innerHTML = "Your score: " + playerScore;
+                
+                
+            } else if ((playerSelection === "paper" && computerSelection === "scissors") ||             
+            (playerSelection === "rock" && computerSelection === "paper") ||               
+            (playerSelection === "scissors" && computerSelection === "rock")) {
+                computerScore++;
+                document.getElementById("winner").innerHTML = "You lost this round, "+ computerSelection +" beats " + playerSelection +".";
+                document.getElementById("compScore").innerHTML = "Computer's score: " + computerScore;    
             }
 
+            if (playerScore >= 5) {
+                document.getElementById("winner").innerHTML = "You win!";
+            
+            } else if (computerScore >= 5) {
+                document.getElementById("winner").innerHTML = "Game over. You lost.";
+            }
+
+            
         };
-
-
         
-
+        function playerPlay() {
+            const buttons = document.querySelectorAll("button");
+            buttons.forEach((button) => {
+                button.addEventListener("click", () => {
+                    computerSelection = computerPlay()
+                    singleRound(button.id, computerSelection)
+                })
+            }); 
+        }; 
+        playerPlay()
+        
         let playerScore = 0
         let computerScore = 0
-
-        function game() { //This function uses the singleRound function and adds a console.log message so the user can see the outcome
-            for (; computerScore < 3 && playerScore < 3 ;) {
-                
-                let computerSelection = computerPlay();
-                let playerSelection = playerPlay();
-                let result = singleRound(playerSelection, computerSelection)
-                
-                if (result === "player") {
-                    playerScore++;
-                    console.log("You won this round, you have " + playerScore + " points. Computer has " + computerScore + " points. All luck.");  
-                } else if (result === "tie") {
-                    console.log("You both picked the same option, try again!");
-                } else if (result === "computer") {
-                    computerScore++;
-                    console.log("Computer won this round, you have " + playerScore + " points. Computer has " + computerScore + " points. Unlucky mate, get better."); 
-                }
-
-                if (playerScore === 3) {
-                    console.log("So jammy! Beginner's luck.")
-                }else if (computerScore === 3) {
-                    console.log("Easy, next opponent please...")
-                }
-                
-                
-            }
-        }
-
-
-
-            game() // plays a whole game
-
-            
-            
+        
     </script>
 
 </body>

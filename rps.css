@@ -1,0 +1,93 @@
+html ,body {
+    background-color:rgb(115, 190, 255);
+    margin: 0px;
+}
+
+button {
+  border: none;
+  padding: 15px 32px;
+  text-align: center;
+  font-size: 60px;
+  border-radius: 50%;
+  cursor: pointer;
+  transition: transform .2s;
+}
+
+button:hover {
+    transform: scale(1.25);
+}
+
+.playerContainer{
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+
+#rock {
+    background-color: rgb(102, 102, 102);
+    color: white;
+}
+
+#paper {
+    background-color: rgb(235, 235, 235);
+    color: black;
+    padding-left: 28px;
+}
+
+#scissors {
+    background-color: green;
+    color: yellow;
+}
+
+#topText {
+    font-size: 60px;
+    text-decoration: underline;
+    display: flex;
+    justify-content: center;
+    margin: 60px 0px;
+    
+}
+
+#bottomText {
+    font-size: 60px;
+    text-decoration: underline;
+    display: flex;
+    justify-content: center;
+    margin: 50px 0px;
+}
+
+#results {
+    font-size: 60px;
+    text-decoration: underline;
+    display: flex;
+    justify-content: center;
+    margin: 40px 0px;
+    text-align: center;
+}
+
+
+#rdmChoice {
+    font-size: 100px;
+    text-align: center;
+}
+
+.outcome {
+    font-size: 40px;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+
+#playScore {
+    width: 210px;
+    text-align: center;
+}
+
+#compScore {
+    width: 310px;
+    text-align: center;
+}
+
+#winner {
+    margin-left: 100px;
+}
